@@ -1,3 +1,4 @@
+// 10. Shift reducing parsing (https://youtu.be/57u5sv4wKXs)
 #include<bits/stdc++.h>
 using namespace std;
 int main()
