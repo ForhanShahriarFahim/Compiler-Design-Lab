@@ -1,4 +1,11 @@
 // 10. Shift reducing parsing (https://youtu.be/57u5sv4wKXs)
+/*
+3
+S = S+S
+S=S*S
+S=I
+I+I+I
+*/
 #include<bits/stdc++.h>
 using namespace std;
 int main()
@@ -73,3 +80,4 @@ int main()
         cout<<"Rejected"<<endl;
     return 0;
 }
+

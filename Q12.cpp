@@ -80,8 +80,8 @@ bool bracketCheck()
 
 int main()
 {
-    cin >> syntax;
-    //cout << isalpha('U');
+    cin >> syntax; // 2+3*5
+    // cout << isalpha('U');
     if (operatorCheck() and bracketCheck())
         cout << "Valid\n";
     else
