@@ -1,91 +1,115 @@
 #include <bits/stdc++.h>
+
 using namespace std;
-vector<string> production = {"E+E", "E-E", "E*E", "E/E", "(E)", "a", "b", "c"};
-vector<string> deg;
 
-void genDeg()
-{
-    string down = "/|";
-    down.push_back(char(92));
-    // cout << down << endl;
-    deg = {down, down, down, down, down, "|", "|", "|"};
-}
+bool solve(string str);
+string reverse_str(string str);
 
-string input, space, extra = "";
-stack<string> parse_tree;
-int n;
-void makeSpace()
+map<string, string> prods;
+
+vector<pair<string, string>> tree;
+
+int main()
 {
-    space.clear();
-    for (int i = 0; i <= n; i++)
+    string str = "(a+b)+c*a/(b-c)";
+    // cout<<str.erase(str.length() - 2);
+
+    prods["a"] = "E";
+    prods["b"] = "E";
+    prods["c"] = "E";
+    prods["E+E"] = "E";
+    prods["E-E"] = "E";
+    prods["E*E"] = "E";
+    prods["E/E"] = "E";
+    prods["(E)"] = "E";
+
+    // cout<<prods["xs"];
+    if (solve(str))
     {
-        space += " ";
-    }
-}
-bool getReduced()
-{
-    int len = input.size();
-    bool ok = false;
-    for (int i = 0; i < len; i++)
-    {
-        int prodIndex = 0;
-        for (auto prod : production)
+        string x = "E";
+        cout << "E" << endl;
+        for (int i = tree.size() - 1; i >= 0; i--)
         {
-            int ind = i;
-            bool ok = true;
-            for (char ch : prod)
+            // cout<<tree[i].first<<"-->"<<tree[i].second<<endl;
+            for (int j = x.length() - 1; j >= 0; j--)
             {
-                if (ch != input[ind])
+                if (x[j] == 'E')
                 {
-                    ok = false;
+                    x.erase(j, 1);
+                    x.insert(j, tree[i].second);
                     break;
                 }
-                ind++;
             }
-            if (ok)
+            cout << x << endl;
+        }
+    }
+
+    return 0;
+}
+
+bool solve(string str)
+{
+    string stk = "$";
+    str = str + "$";
+
+    int i = 0;
+    while (true)
+    {
+        // cout<<stk<<"\t\t";
+
+        // for(int k = i; str[k] != '\0'; k++)
+        //     cout<<str[k];
+        // cout<<"\t\t";
+
+        if (stk == "$E" && str[i] == '$')
+        {
+            cout << "SUCCESS" << endl;
+            return true;
+        }
+
+        if (i > str.length() - 1)
+        {
+            cout << "FAILED" << endl;
+            return false;
+        }
+
+        else
+        {
+            string tmp = "";
+            int j;
+            for (j = stk.length() - 1; j > 0; j--)
             {
-                // production match
-                input.erase(i, prod.size());
-                input.insert(i, "E");
-                makeSpace();
-                space.insert(i + extra.size(), deg[prodIndex]);
-                parse_tree.push(space);
-                if (prod.size() == 3)
+                tmp = tmp + stk[j];
+
+                string tmp2 = reverse_str(tmp);
+                if (prods[tmp2] != "")
                 {
-                    extra += " ";
+                    stk.erase(stk.length() - tmp2.length());
+                    stk = stk + prods[tmp2];
+                    tmp = "";
+                    // cout<<"REDUCE TO "<<prods[tmp2]<<" --> "<<tmp2<<endl;
+                    tree.push_back({prods[tmp2], tmp2});
+                    break;
                 }
-                parse_tree.push(extra + input);
-                return true;
             }
-            prodIndex++;
+
+            if (j <= 0)
+            {
+                // cout<<"SHIFT"<<endl;
+                stk = stk + str[i];
+                i = i + 1;
+            }
         }
     }
     return false;
 }
-int main()
+
+string reverse_str(string str)
 {
-    genDeg();
-    cin >> input; // a+b*c
-    input += '$';
-    n = input.size();
-    parse_tree.push(input);
-    while (input.size() > 2 || (input.size() == 2 && input[0] != 'E'))
+    string tmp = "";
+    for (int i = str.length() - 1; i >= 0; i--)
     {
-        // parse_tree.push(input);
-        bool ok = getReduced();
-        if (ok)
-            continue;
-        cout << "Invalid String." << endl;
-        return 0;
+        tmp = tmp + str[i];
     }
-    // cout << input << " : last situation." << endl;
-    // parse_tree.push(input);
-    while (!parse_tree.empty())
-    {
-        string str = parse_tree.top();
-        str.pop_back();
-        cout << str << endl;
-        parse_tree.pop();
-    }
-    return 0;
+    return tmp;
 }

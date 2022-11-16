@@ -1,60 +1,44 @@
 #include <bits/stdc++.h>
-using namespace std;
-vector<string> production = {"E+E", "E-E", "E*E", "E/E", "(E)", "a", "b", "c"};
-string input;
-stack<string> parse_tree;
 
-bool getReduced()
-{
-    int len = input.size();
-    bool ok = false;
-    for (int i = 0; i < len; i++)
-    {
-        for (auto prod : production)
-        {
-            int ind = i;
-            bool ok = true;
-            for (char ch : prod)
-            {
-                if (ch != input[ind])
-                {
-                    ok = false;
-                    break;
-                }
-                ind++;
-            }
-            if (ok)
-            {
-                // production match
-                input.erase(i, prod.size());
-                input.insert(i, "E");
-                return true;
-            }
-        }
-    }
-    return false;
-}
+using namespace std;
+
+vector<string> tree(50, "                              ");
+
+void syntaxTree(string ex);
+bool isOp(char x);
+
 int main()
 {
-    cin >> input;
-    input += '$';
-    while (input.size() > 2)
+    string expression;
+    // Input format = A+B*C/D*G+F-T
+    cin >> expression;
+    syntaxTree(expression);
+    cout << "Syntax Tree:\n";
+    for (string x : tree)
     {
-        parse_tree.push(input);
-        bool ok = getReduced();
-        if (ok)
-            continue;
-        cout << "Invalid String." << endl;
-        return 0;
+        cout << x << "\n";
     }
-    // cout << input << " : last situation." << endl;
-    parse_tree.push(input);
-    while (!parse_tree.empty())
+}
+
+void syntaxTree(string ex)
+{
+    int row = 0, col = 2;
+    for (int i = 0; ex[i]; i++)
     {
-        string str = parse_tree.top();
-        str.pop_back();
-        cout << str << endl;
-        parse_tree.pop();
+        if (isOp(ex[i]))
+        {
+            tree[row][col] = ex[i];
+            tree[row + 1][col - 1] = '/';
+            tree[row + 1][col + 1] = '\\';
+            tree[row + 2][col - 2] = ex[i - 1];
+            row += 2;
+            col += 2;
+        }
     }
-    return 0;
+    tree[row][col] = ex.back();
+}
+
+bool isOp(char x)
+{
+    return (x == '+' or x == '-' or x == '*' or x == '\\');
 }
