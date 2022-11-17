@@ -1,5 +1,6 @@
 // 7. Write a program to recognize C++
 // 1. Keyword 2. Identifier 3. Operator 4. Constant
+// sample input: "Fahim" int 43
 
 #include <bits/stdc++.h>
 using namespace std;

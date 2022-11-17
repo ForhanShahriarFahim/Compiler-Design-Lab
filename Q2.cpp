@@ -1,3 +1,4 @@
+// Sample input: Munmun is the student of Compter science & engineering
 #include <bits/stdc++.h>
 
 using namespace std;

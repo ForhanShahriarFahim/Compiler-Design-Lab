@@ -1,5 +1,5 @@
 // 8. Write a program which converts a word of C++ program to its equivalent token
-
+// Sample input: 554 258.5 *
 #include <bits/stdc++.h>
 using namespace std;
 int pointCount = 0;

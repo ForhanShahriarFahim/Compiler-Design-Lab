@@ -1,4 +1,5 @@
-//9. Justify english sentence is syntactically valid or invalid according to given chomsky Normal form  
+// 9. Justify english sentence is syntactically valid or invalid according to given chomsky Normal form
+// Sample input: I eat rice
 #include <bits/stdc++.h>
 using namespace std;
 

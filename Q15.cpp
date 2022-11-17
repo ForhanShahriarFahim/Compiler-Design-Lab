@@ -10,6 +10,8 @@ bool parse(string str);
 
 int main()
 {
+    //freopen("input.txt", "r", stdin);
+    //freopen("output.txt", "w", stdout);
     string str = "id+id*id";
 
     productions[make_pair('E', 'X')] = "TP";

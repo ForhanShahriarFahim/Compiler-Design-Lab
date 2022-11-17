@@ -1,7 +1,12 @@
 // 5. Build a lexical analyzer for Float, Double
 
+/*
+sample input: 3
+0.23 aZ4 23.255454
+*/
+
 #include <bits/stdc++.h>
-using namespace std;
+    using namespace std;
 
 bool checkFloatVariable(string str)
 {

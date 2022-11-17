@@ -1,0 +1,14 @@
+id+id*id
+
+SUCCESS
+E --> TP
+      T --> FQ
+            F --> id
+            Q --> @
+      P --> +TP
+            T --> FQ
+                  F --> id
+                  Q --> *FQ
+                        F --> id
+                        Q --> @
+            P --> @

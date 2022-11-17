@@ -1,3 +1,4 @@
+// Shift Reduce Parser
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -10,6 +11,7 @@ map<string, string> prods;
 int main()
 {
     string str = "((x+x)/(x-x))";
+    cin>>str;
 
     prods["E+E"] = "E";
     prods["E-E"] = "E";

@@ -1,4 +1,5 @@
 // 4. Build a lexical analyzer for Integer, ShortInt, LongInt
+// Sample input: Iakd34
 #include <bits/stdc++.h>
 
 using namespace std;

@@ -1,5 +1,10 @@
 // 6.  Build a lexical analyzer for Character, Binary Variable, Binary Number
-
+/*
+sample input:
+2
+ch_aZ0
+010101
+*/
 #include <bits/stdc++.h>
 using namespace std;
 
